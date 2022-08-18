@@ -9,5 +9,9 @@
  * @author Shelvin
  */
 public class Card {
-    
+
+    public static void main() {
+        System.out.println("");
+    }
 }
+
