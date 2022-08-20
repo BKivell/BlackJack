@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 
 /**
@@ -7,7 +6,7 @@ import java.util.ArrayList;
  */
 public class Person {
 
-    private ArrayList<Card> hand;
+    private final ArrayList<Card> hand;
     private int handValue;
 
     // DEFAULT CONSTRUCTOR
@@ -19,11 +18,13 @@ public class Person {
     // ADDS card PARAM  TO PLAYER hand
     public void giveCard(Card card) {
         this.getHand().add(card);
+        this.setHandValue(this.getHandValue()+card.getValue());
     }
 
     // CLEARS PLAYERS hand
     public void clearCards() {
         this.getHand().clear();
+        this.setHandValue(0);
     }
 
     // RETURNS hand AS ArrayList<Card>;

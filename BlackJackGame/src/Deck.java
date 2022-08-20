@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 
 /**
@@ -8,7 +7,7 @@ import java.util.ArrayList;
 public class Deck {
 
     // DECK ArrayList
-    private ArrayList<Card> cards;
+    private final ArrayList<Card> cards;
 
     // CONSTRUCTOR
     public Deck() {
@@ -21,9 +20,9 @@ public class Deck {
         }
         // Special Case Cards
         cards.add(new Card("Ace", "Clubs", 1));
-        cards.add(new Card("Jack", "Clubs", 11));
-        cards.add(new Card("Queen", "Clubs", 12));
-        cards.add(new Card("King", "Clubs", 13));
+        cards.add(new Card("Jack", "Clubs", 10));
+        cards.add(new Card("Queen", "Clubs", 10));
+        cards.add(new Card("King", "Clubs", 10));
 
         // Diamonds
         for (int i = 2; i <= 10; i++) {
@@ -31,9 +30,9 @@ public class Deck {
         }
         // Special Case Cards
         cards.add(new Card("Ace", "Diamonds", 1));
-        cards.add(new Card("Jack", "Diamonds", 11));
-        cards.add(new Card("Queen", "Diamonds", 12));
-        cards.add(new Card("King", "Diamonds", 13));
+        cards.add(new Card("Jack", "Diamonds", 10));
+        cards.add(new Card("Queen", "Diamonds", 10));
+        cards.add(new Card("King", "Diamonds", 10));
 
         // Hearts
         for (int i = 2; i <= 10; i++) {
@@ -41,9 +40,9 @@ public class Deck {
         }
         // Special Case Cards
         cards.add(new Card("Ace", "Hearts", 1));
-        cards.add(new Card("Jack", "Hearts", 11));
-        cards.add(new Card("Queen", "Hearts", 12));
-        cards.add(new Card("King", "Hearts", 13));
+        cards.add(new Card("Jack", "Hearts", 10));
+        cards.add(new Card("Queen", "Hearts", 10));
+        cards.add(new Card("King", "Hearts", 10));
 
         // Spades
         for (int i = 2; i <= 10; i++) {
@@ -51,9 +50,9 @@ public class Deck {
         }
         // Special Case Cards
         cards.add(new Card("Ace", "Spades", 1));
-        cards.add(new Card("Jack", "Spades", 11));
-        cards.add(new Card("Queen", "Spades", 12));
-        cards.add(new Card("King", "Spades", 13));
+        cards.add(new Card("Jack", "Spades", 10));
+        cards.add(new Card("Queen", "Spades", 10));
+        cards.add(new Card("King", "Spades", 10));
     }
 
     // RETURNS deck AS ArrayList<Card>

@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -8,8 +7,8 @@ import java.util.Random;
  */
 public final class Dealer extends Person {
 
-    private Deck deck;
-    private Random rand = new Random();
+    private final Deck deck;
+    private final Random rand = new Random();
     private int deckIndex;
     
     
@@ -20,31 +19,30 @@ public final class Dealer extends Person {
     }
 
     // SHUFFLES DECK
-    public void shuffleCards() {
-        for (int i = 0; i <= deck.getDeckCards().size()-1; i++) {
+    public void shuffleDeck() {
+        for (int i = 0; i <= deck.getDeckCards().size() - 1; i++) {
             deck.switchCards(i, rand.nextInt(deck.getDeckCards().size()));
         }
     }
-    
+
     // RETURNS Card FROM Dealer Deck & REMOVES FROM DECK
-    public Card dealCard()
-    {
+    public Card dealCard() {
         Card card;
         card = deck.getDeckCards().get(deckIndex);
         deck.getDeckCards().remove(deckIndex);
         deckIndex++;
         return card;
     }
-    
+
     // ADDS CARDS BACK TO DEALERS DECK
-    public void returnCards(ArrayList<Card> returned)
-    {
+    public void returnCards(Person p) {
+        ArrayList<Card> returned = p.getHand();
         int returnedIndex = 0;
-        for(int i = deckIndex; i >= deckIndex-returned.size(); i--)
-        {
-            this.deck.getDeckCards().add(deckIndex, returned.get(i));
+        for (int i = 0; i <= returned.size() - 1; i++) {
+            this.deck.getDeckCards().add(returned.get(returnedIndex));
             returnedIndex++;
         }
+        p.clearCards();
     }
 
 }

@@ -1,14 +1,13 @@
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
  * @author Brad Kivell (20115449)
@@ -16,7 +15,8 @@ import java.util.logging.Logger;
 public class DataTracker {
 
     //------------------------------------[VARIABLES]------------------------------------
-    private String filePath = "./resources/DataTracker.txt";
+    //private String filePath = "./resources/DataTracker.txt";
+    private Path filePath = Paths.get("./resources/DataTracker.txt");
     private String userName = "";
     private int balance = 0;
 
@@ -29,12 +29,18 @@ public class DataTracker {
     //------------------------------------[CONSTRUCTOR]------------------------------------
     public DataTracker(String userName) {
         try {
-            this.reader = new FileReader(filePath);
+            this.reader = new FileReader(filePath.toString());
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(DataTracker.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                Files.createFile(filePath);
+                System.out.println("File Created at " + filePath.toString());
+                this.reader = new FileReader(filePath.toString());
+            } catch (IOException ex1) {
+                System.out.println("Could not create file at " + filePath.toString());
+            }
         }
         this.buffReader = new BufferedReader(reader);
-        this.userName = userName;
+        this.userName = userName.trim();
     }
 
     //------------------------------------[LOAD DATA FROM FILE]------------------------------------
@@ -66,7 +72,7 @@ public class DataTracker {
     //------------------------------------[SAVE TO FILE]------------------------------------
     public void saveSequence() throws FileNotFoundException {
         try (
-                 PrintWriter writer = new PrintWriter(filePath) // Write Updated Values
+                 PrintWriter writer = new PrintWriter(filePath.toString())
                 ) {
             if (!pastUser) {
                 writer.print(getUserName() + " " + getBalance() + "\n");
@@ -76,7 +82,7 @@ public class DataTracker {
             for (Map.Entry keyValuePair : scoreMap.entrySet()) {
                 writer.print(keyValuePair.getKey() + " " + keyValuePair.getValue() + "\n");
             }
-            // Close Writer
+            writer.close();
         }
     }
 
@@ -86,7 +92,6 @@ public class DataTracker {
         System.out.println("Current Balance: " + this.getBalance());
     }
 
-    
     //------------------------------------[GET & SET]------------------------------------
     // RETURNS userName AS String
     public String getUserName() {
