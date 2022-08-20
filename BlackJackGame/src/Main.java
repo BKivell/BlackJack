@@ -2,7 +2,7 @@
  * Console based BlackJack game for PDC Assignment 1
  * 
  * @author Brad Kivell - 20115449
- * @author Shelvin Kumar - [ID NUM HERE]
+ * @author Shelvin Kumar - 17985924
  */
 public class Main {
 
