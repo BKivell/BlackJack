@@ -13,7 +13,6 @@ public class BlackJack {
     // INSTANCE VARIABLES
     private final Scanner scan = new Scanner(System.in);
     public String stringInput;
-    public int intInput;
     public Dealer dealer;
     DataTracker dataTracker;
     Player player;
@@ -58,12 +57,46 @@ public class BlackJack {
         }
     }
 
+    // Returns input as integer w/ exception handling
+    public int getIntInput() {
+        int i = 0;
+        boolean askingInput = true;
+        while (askingInput) {
+            try {
+                i = scan.nextInt();
+                askingInput = false;
+            } catch (InputMismatchException e) {
+                scan.next();
+                System.out.println("Invalid Input: Please enter a valid number");
+            }
+        }
+        return i;
+    }
+
     // Shows user options after being delt card
     public void showGameOptions() {
+        // Variables
         boolean showingOptions = true;
+        int optionNum;
+        // Print hand values
         System.out.println("\nPlayers hand value: " + player.getHandValue());
         System.out.println("Dealers hand value: " + dealer.getHandValue() + " + Unknown Card");
-        while (showingOptions) {     
+        // Loop while in users turn
+        System.out.println(""); // DISPLAY OPTIONS
+        System.out.println("\nPlease enter your option number: ");
+        while (showingOptions) {
+            optionNum = getIntInput();
+            switch (optionNum) {
+                case 1 -> System.out.println("");
+                // Do option 1
+                case 2 -> System.out.println("");
+                // Do option 2
+                case 3 -> System.out.println("");
+                // Do option 3
+                default -> System.out.println("Invalid Option");
+            }
+
+            // Exit loop
             showingOptions = false;
         }
         // Deal another card - will end turn
@@ -74,21 +107,13 @@ public class BlackJack {
     }
 
     // Main Game Loop
-    public void gameLoop()
-    {
+    public void gameLoop() {
         System.out.println("New Game Starting\nEnter an amount to bet (Must be a whole number)");
         boolean setUp = true;
         while (setUp) {// Get bet amount and set players money in game
-
-            try {
-                intInput = scan.nextInt();
-                player.setMoneyInGame(intInput);
-                setUp = false;
-                playing = true;
-            } catch (InputMismatchException e) {
-                scan.next();
-                System.out.println("Invalid Input: Please enter a valid number");
-            }
+            player.setMoneyInGame(getIntInput());
+            setUp = false;
+            playing = true;
         }
 
         while (playing) {
