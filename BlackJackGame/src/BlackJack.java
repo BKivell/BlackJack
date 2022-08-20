@@ -6,6 +6,7 @@ import java.util.Scanner;
 /**
  *
  * @author Brad Kivell
+ * @author Shelvin Kumar
  */
 public class BlackJack {
 
@@ -62,19 +63,18 @@ public class BlackJack {
         boolean showingOptions = true;
         System.out.println("\nPlayers hand value: " + player.getHandValue());
         System.out.println("Dealers hand value: " + dealer.getHandValue() + " + Unknown Card");
-        while (showingOptions) {
-            
-            
+        while (showingOptions) {     
             showingOptions = false;
         }
         // Deal another card - will end turn
         // Sit at current cards?
         // Change ace value if player holds ace 
         // If player holds ace or dealer, give option to make value 1 or 11 but actually just add and remove 10 off their handValue
+        // Follow rules
     }
 
     // Main Game Loop
-    public void gameLoop() //-------------------------------------------------THIS IS BASICALLY ALL THAT NEEDS TO BE EDITIED
+    public void gameLoop()
     {
         System.out.println("New Game Starting\nEnter an amount to bet (Must be a whole number)");
         boolean setUp = true;
