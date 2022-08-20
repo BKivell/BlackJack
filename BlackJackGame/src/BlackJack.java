@@ -123,6 +123,16 @@ public class BlackJack {
             System.out.println("\nDealing Card to Dealer:");
             dealToPerson(dealer, 1);
             // Show options (Deal another card, Sit at current cards, Change ace value)
+            //if the vlaue is less them 21 ask player if they want to "hit" or "stand".
+            //if player picks "stand", show dealer card. if dealer card is 21 then print "BUST" and remove bet amount from player. 
+            //if dealer card isnt 21 and is less then player add 1 more card to dealer if  dealer card value still less then player then player wins.
+            //if dealer card more then 21(e.g 25) then player wins and add 2 X bet amount.
+            //if dealer card less then 21 but more then player card value then dealer wins and print "Dealer wins" and remove bet amount from player.
+            //if Player chooses hit then add one card to player and calculate the value of the card and print the card value if the card value is 21 print player wins and return 2 X bet amount.
+            //if player card less then 21(e.g 17) ask player if they want to "HIT or STAND"
+            //if player card value more then 21, then print "BUST", take the bet amount.
+              
+            //NOTE DEALER option only happens if player picks "STAND".
             showGameOptions();
             playing = false;
         }
