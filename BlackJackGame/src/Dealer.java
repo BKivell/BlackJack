@@ -4,6 +4,7 @@ import java.util.Random;
 /**
  *
  * @author Brad Kivell
+ * @author Shelvin Kumar
  */
 public final class Dealer extends Person {
 
