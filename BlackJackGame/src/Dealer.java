@@ -42,6 +42,7 @@ public final class Dealer extends Person {
         for (int i = 0; i <= returned.size() - 1; i++) {
             this.deck.getDeckCards().add(returned.get(returnedIndex));
             returnedIndex++;
+            deckIndex--;
         }
         p.clearCards();
     }
