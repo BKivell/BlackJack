@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 
 /**
@@ -18,7 +19,7 @@ public class Person {
     // ADDS card PARAM  TO PLAYER hand
     public void giveCard(Card card) {
         this.getHand().add(card);
-        this.setHandValue(this.getHandValue()+card.getValue());
+        this.setHandValue(this.getHandValue() + card.getValue());
     }
 
     // CLEARS PLAYERS hand
@@ -38,7 +39,18 @@ public class Person {
     }
 
     // SETS handValue TO PARAM
-    public void setHandValue(int score) {
-        this.handValue = score;
+    public void setHandValue(int i) {
+        this.handValue = i;
     }
+
+    // Checks player hand for Ace RETURNS Boolean
+    public boolean checkForAce() {
+        for (Card c : this.getHand()) {
+            if (c.getFace().equals("Ace")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

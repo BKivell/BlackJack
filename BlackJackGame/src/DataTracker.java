@@ -60,13 +60,16 @@ public class DataTracker {
                         setBalance((int) scoreRead);
                         pastUser = true;
                     }
+                    else
+                    {
+                        setBalance(1000); // Default starting money
+                    }
                     scoreMap.put(name, scoreRead);
                 }
             }
         } catch (IOException ex) {
             System.out.println("Error: IOException while loading file");
         }
-        System.out.println("Welcome! Your current balance is: " + getBalance());
     }
 
     //------------------------------------[SAVE TO FILE]------------------------------------

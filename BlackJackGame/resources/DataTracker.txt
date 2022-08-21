@@ -1,1 +1,2 @@
-Brad 0
+Shelvin 1000
+Brad 1000

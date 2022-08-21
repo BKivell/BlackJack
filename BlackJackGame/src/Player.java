@@ -42,8 +42,24 @@ public final class Player extends Person {
     }
 
     // SET moneyInGame TO PARAM
-    public void setMoneyInGame(int moneyInGame) {
-        this.moneyInGame = moneyInGame;
+    public boolean setMoneyInGame(int i) {
+        if (i <= this.getBalance() && i >= 0) {
+            this.moneyInGame = i;
+            return true;
+        } else {
+            System.out.println("Insufficient Funds: Enter a valid bet");
+        }
+        return false;
+    }
+
+    // INCREASES balance BY moneyInGame
+    public void increaseBalance() {
+        this.setBalance(balance + moneyInGame);
+    }
+
+    // DECREASES balance BY moneyInGame
+    public void decreaseBalance() {
+        this.setBalance(balance - moneyInGame);
     }
 
 }
