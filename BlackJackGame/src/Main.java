@@ -15,7 +15,7 @@ public class Main {
                       
         CARD VALUES:
         Each number card is the value of the card, Ace Cards value can 
-        be 1 or 11, Face cards value equal 10.
+        be 1 or 11, Face cards value equal 10.B
                       
         BETTING:
         Start of the game the player places a bet (must be between 0 and the players balance)
@@ -23,8 +23,9 @@ public class Main {
         THE DEALER:
         Once the player has placed their bet, the dealer then deal 2 card to the player facing up and
         1 card facing up and one card hidden from player to themself. The Dealer then asks the player if they
-        Want to HIT or STAND, If Player picks HIT then dealer gives then one 1 and asks again until player either
-        says STAND or if player gets BUST(Hits till past 21).
+        Want to HIT or STAND, If Player picks HIT then dealer gives them one 1 card and asks again until player either
+        says STAND or if player gets BUST(Hand value over 21). The dealer then flips over the other card and will keep dealing to themself
+        until a minimum value of 17 has been reached.
 
         """;
 

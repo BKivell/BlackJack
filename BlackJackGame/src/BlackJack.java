@@ -16,7 +16,7 @@ public class BlackJack {
     public Dealer dealer;
     DataTracker dataTracker;
     Player player;
-    
+
     // CONSTRUCTOR
     public BlackJack() {
         System.out.println("Welcome to BlackJack!\nPlease enter your username: ");
@@ -28,11 +28,13 @@ public class BlackJack {
     }
 
     // Deal card to person
-    public void dealToPerson(Person p, int num) {
+    public void dealToPerson(Person p, int num, boolean display) {
         for (int i = 0; i < num; i++) {
             Card c = dealer.dealCard();
             p.giveCard(c);
-            System.out.println("Dealt: " + c.toString());
+            if (display) {
+                System.out.println("Dealt: " + c.toString());
+            }
         }
     }
 
@@ -50,7 +52,6 @@ public class BlackJack {
         System.out.println("Players Hand Value: " + player.getHandValue());
         System.out.println("Dealers Hand Value: " + dealer.getHandValue());
 
-        //Check winner & display results------------------------------------------------------------------------------------------**
         //Also update balances
         if (player.getHandValue() <= 21) {
             if (player.getHandValue() == 21) {
@@ -83,6 +84,7 @@ public class BlackJack {
         } catch (FileNotFoundException ex) {
             System.out.println("File not found: Data has been lost for this session");
         }
+        System.out.println("New player balance: " + dataTracker.getBalance());
     }
 
     // Returns input as integer w/ exception handling
@@ -103,42 +105,60 @@ public class BlackJack {
 
     //-----------------------------------------[SHOW GAME OPTIONS]-----------------------------------------
     public void showGameOptions() {
-        // Variables
+        // Method Variables
         boolean showingOptions = true;
         int optionNum;
-        // Print hand values
-        System.out.println("\nPlayers hand value: " + player.getHandValue());
-        System.out.println("Dealers hand value: " + dealer.getHandValue() + " + Unknown Card");
-        // Loop while in users turn
-        System.out.println("\n1. Hit - Deal more cards");
-        System.out.println("2. Stand - End turn with current cards ");
-        // Only display option if player holds ace
-        if (player.checkForAce()) {
-            System.out.println("3. Change value of Ace Cards");
-        }
-        System.out.println("\nPlease enter your option number (E.g '1'): ");
+
         while (showingOptions) {
+            // Print hand values
+            System.out.println("\nPlayers hand value: " + player.getHandValue());
+            System.out.println("Dealers hand value: " + dealer.getHandValue() + " + Unknown Card Value");
+            // Loop while in users turn
+            System.out.println("\n1. Hit - Deal more cards");
+            System.out.println("2. Stand - End turn with current cards ");
+            // Only display option if player holds ace
+            if (player.checkForAce() > 0) {
+                System.out.println("3. Change value of Ace Cards");
+            }
+            System.out.println("\nPlease enter your option number (E.g '1'): ");
+
             optionNum = getIntInput();
             switch (optionNum) {
-                case 1:
-                    dealToPerson(player, 1);
-                    // Check if player wants to hit again------------------------------------------------------------------------------------**
+                case 1 -> {
                     // Keep hitting until player wants to end turn or goes bust
-                    showingOptions = false;
-                    break;
-                case 2:
-                    showingOptions = false;
-                    break;
-                case 3:
-                    if (player.checkForAce()) {
-                        // Change ace value here------------------------------------------------------------------------------------**
-                        // Check for multiple ace cards
+                    dealToPerson(player, 1, true);
+                    if (player.getHandValue() > 21) {
                         showingOptions = false;
+                    }
+                }
+                case 2 ->
+                    showingOptions = false;
+                case 3 -> {
+                    // Check for ace cards
+                    if (player.checkForAce() > 0) {
+                        // Check for multiple ace cards
+                        for (int i = 1; i <= player.checkForAce(); i++) {
+                            System.out.println(player.getAceCard(i).toString());
+                            System.out.println("Enter 1 to value card at 1, or enter 2 to value card at 11");
+                            optionNum = getIntInput();
+                            switch (optionNum) {
+                                case 1:
+                                    player.getAceCard(i).setValue(1);
+                                    break;
+                                case 2:
+                                    player.getAceCard(i).setValue(11);
+                                    break;
+                                default:
+                                    System.out.println("Invalid option");
+                                    break;
+                            }
+                            player.updateHandValue();
+                        }
                     } else {
                         System.out.println("Invalid Option: No aces are in hand");
                     }
-                    break;
-                default:
+                }
+                default ->
                     System.out.println("Invalid Option");
             }
         }
@@ -146,7 +166,7 @@ public class BlackJack {
 
     //-----------------------------------------[MAIN LOOP]-----------------------------------------
     public void gameLoop() {
-        // Start Game Loop
+        // Start Game Loop to place bet
         System.out.println("New Game Starting");
         System.out.println("Current Balance: " + player.getBalance());
         System.out.println("Enter an amount to bet (Must be a whole number)");
@@ -157,29 +177,24 @@ public class BlackJack {
             }
         }
 
-        // Deal card to player & check hand value
+        // Deal cards to player & dealer
         System.out.println("\nPlayers hand:");
-        dealToPerson(player, 2);
-        System.out.println("\nDealers hand:");
-        dealToPerson(dealer, 1);
+        dealToPerson(player, 2, true);
+        System.out.println("\nDealers shown card:");
+        dealToPerson(dealer, 1, true);
 
         // Show options (Deal another card, Sit at current cards, Change ace value)
         showGameOptions();
 
         // Deal final cards to dealer until they have at least 17
-        System.out.println("\nDealers Last Cards:");
+        System.out.println("\nDealers Final Hand:");
         while (dealer.getHandValue() < 17) {
-            dealToPerson(dealer, 1);
+            dealToPerson(dealer, 1, false);
         }
+        // Display dealers cards
+        dealer.displayHand();
 
-        //if player picks "stand", show dealer card. if dealer card is 21 then print "BUST" and remove bet amount from player. 
-        //if dealer card isnt 21 and is less then player add 1 more card to dealer if  dealer card value still less then player then player wins.
-        //if dealer card more then 21(e.g 25) then player wins and add 2 X bet amount.
-        //if dealer card less then 21 but more then player card value then dealer wins and print "Dealer wins" and remove bet amount from player.
-        //if Player chooses hit then add one card to player and calculate the value of the card and print the card value if the card value is 21 print player wins and return 2 X bet amount.
-        //if player card less then 21(e.g 17) ask player if they want to "HIT or STAND"
-        //if player card value more then 21, then print "BUST", take the bet amount.
-        //NOTE DEALER option only happens if player picks "STAND".
+        // Ends game, checks for winner & saves data
         endGame();
 
         // Check for replay, if replay is wanted, call startGame();
