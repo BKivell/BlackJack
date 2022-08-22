@@ -48,7 +48,7 @@ public class BlackJack {
 
     // Called when no more moves are to be made
     public void endGame() {
-        System.out.println("\nGame Over");
+        System.out.println("\nGAME OVER");
         System.out.println("Players Hand Value: " + player.getHandValue());
         System.out.println("Dealers Hand Value: " + dealer.getHandValue());
 
@@ -138,7 +138,7 @@ public class BlackJack {
                     if (player.checkForAce() > 0) {
                         // Check for multiple ace cards
                         for (int i = 1; i <= player.checkForAce(); i++) {
-                            System.out.println(player.getAceCard(i).toString());
+                            System.out.println(player.getAceCard(i).toString() + " Current Value: " + player.getAceCard(i).getValue());
                             System.out.println("Enter 1 to value card at 1, or enter 2 to value card at 11");
                             optionNum = getIntInput();
                             switch (optionNum) {
