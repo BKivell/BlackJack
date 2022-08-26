@@ -198,7 +198,7 @@ public class BlackJack {
         endGame();
 
         // Check for replay, if replay is wanted, call startGame();
-        System.out.println("Type 1 to restart game or 2 to exit");
+        System.out.println("Type 1 to restart game or any other number to exit");
         if (getIntInput() == 1) {
             startGame();
         }
