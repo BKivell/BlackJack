@@ -38,6 +38,7 @@ public class BlackJack {
         }
     }
 
+    // Sets game up
     public void startGame() {
         // Clears current cards held
         player.clearCards();
@@ -53,7 +54,7 @@ public class BlackJack {
             System.out.println("Players Hand Value: " + player.getHandValue());
             System.out.println("Dealers Hand Value: " + dealer.getHandValue());
 
-            //Also update balances
+            // Possible game outcomes
             if (player.getHandValue() <= 21) {
                 if (player.getHandValue() == 21) {
                     System.out.println("BLACKJACK - Player Wins");

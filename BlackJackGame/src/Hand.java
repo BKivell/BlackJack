@@ -11,6 +11,7 @@ public class Hand {
     private final ArrayList<Card> hand;
     private int handValue;
 
+    // Default constructor
     public Hand() {
         this.hand = new ArrayList<>();
         this.handValue = 0;

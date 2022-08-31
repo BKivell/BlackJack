@@ -1,6 +1,7 @@
 /**
  *
  * @author Brad Kivell
+ * @author Shelvin Kumar
  */
 public class Card {
 

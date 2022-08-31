@@ -29,7 +29,9 @@ public class Main {
 
         """;
 
+        // Prints game rules
         System.out.println(Rule);
+        // Creates & Starts game
         BlackJack game = new BlackJack();
         game.startGame();
     }

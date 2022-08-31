@@ -2,6 +2,7 @@
 /**
  *
  * @author Brad Kivell
+ * @author Shelvin Kumar
  */
 public final class Player extends Person {
 

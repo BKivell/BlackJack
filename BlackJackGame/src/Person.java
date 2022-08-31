@@ -4,9 +4,11 @@ import java.util.ArrayList;
 /**
  *
  * @author Brad Kivell
+ * @author Shelvin Kumar
  */
 public class Person {
 
+    // Stores players cards on hand
     private Hand hand;
 
     // DEFAULT CONSTRUCTOR
@@ -31,6 +33,7 @@ public class Person {
         return hand.getHand();
     }
 
+    // Prints players hand to system.out
     public void displayHand() {
         for (Card c : getHand()) {
             System.out.println(c.toString());
