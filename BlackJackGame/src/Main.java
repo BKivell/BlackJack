@@ -34,3 +34,5 @@ public class Main {
         game.startGame();
     }
 }
+
+// Make class for rules to show or not show, reads from file

@@ -47,54 +47,69 @@ public class BlackJack {
     }
 
     // Called when no more moves are to be made
-    public void endGame() {
+    public void endGame(boolean gameEnded) {
         System.out.println("\nGAME OVER");
-        System.out.println("Players Hand Value: " + player.getHandValue());
-        System.out.println("Dealers Hand Value: " + dealer.getHandValue());
+        if (gameEnded) {
+            System.out.println("Players Hand Value: " + player.getHandValue());
+            System.out.println("Dealers Hand Value: " + dealer.getHandValue());
 
-        //Also update balances
-        if (player.getHandValue() <= 21) {
-            if (player.getHandValue() == 21) {
-                System.out.println("BLACKJACK - Player Wins");
-                player.increaseBalance();
-            } else if (player.getHandValue() > dealer.getHandValue()) {
-                System.out.println("Player Wins");
-                player.increaseBalance();
-            } else if (player.getHandValue() < dealer.getHandValue() && dealer.getHandValue() <= 21) {
-                System.out.println("Dealer Wins");
-                player.decreaseBalance();
-            } else if (player.getHandValue() < dealer.getHandValue() && dealer.getHandValue() > 21) {
-                System.out.println("Player Wins - Dealer Bust");
-                player.increaseBalance();
+            //Also update balances
+            if (player.getHandValue() <= 21) {
+                if (player.getHandValue() == 21) {
+                    System.out.println("BLACKJACK - Player Wins");
+                    player.increaseBalance();
+                } else if (player.getHandValue() > dealer.getHandValue()) {
+                    System.out.println("Player Wins");
+                    player.increaseBalance();
+                } else if (player.getHandValue() < dealer.getHandValue() && dealer.getHandValue() <= 21) {
+                    System.out.println("Dealer Wins");
+                    player.decreaseBalance();
+                } else if (player.getHandValue() < dealer.getHandValue() && dealer.getHandValue() > 21) {
+                    System.out.println("Player Wins - Dealer Bust");
+                    player.increaseBalance();
+                } else {
+                    System.out.println("No Winner");
+                }
             } else {
-                System.out.println("No Winner");
+                System.out.println("BUST - Dealer Wins");
+                player.decreaseBalance();
             }
-        } else {
-            System.out.println("BUST - Dealer Wins");
-            player.decreaseBalance();
-        }
 
-        // Return cards to the dealers deck
-        dealer.returnCards(player);
-        dealer.returnCards(dealer);
-        // Save Data
-        dataTracker.setBalance(player.getBalance());
-        try {
-            dataTracker.saveSequence();
-        } catch (FileNotFoundException ex) {
-            System.out.println("File not found: Data has been lost for this session");
+            // Return cards to the dealers deck
+            dealer.returnCards(player);
+            dealer.returnCards(dealer);
+            // Save Data
+            dataTracker.setBalance(player.getBalance());
+            try {
+                dataTracker.saveSequence();
+            } catch (FileNotFoundException ex) {
+                System.out.println("File not found: Data has been lost for this session");
+            }
         }
         System.out.println("New player balance: " + dataTracker.getBalance());
     }
 
     // Returns input as integer w/ exception handling
     public int getIntInput() {
+        String input = "";
         int i = 0;
         boolean askingInput = true;
         while (askingInput) {
             try {
-                i = scan.nextInt();
-                askingInput = false;
+                input = scan.nextLine().trim();
+                try {
+                    i = Integer.valueOf(input);
+                    askingInput = false;
+                } catch (NumberFormatException e) {
+                    if (input.equalsIgnoreCase("x")) {
+                        endGame(false);
+                        System.exit(0);
+                    }
+                    else
+                    {
+                         System.out.println("Invalid Input: Please enter a valid number");
+                    }
+                }
             } catch (InputMismatchException e) {
                 scan.next();
                 System.out.println("Invalid Input: Please enter a valid number");
@@ -167,7 +182,7 @@ public class BlackJack {
     //-----------------------------------------[MAIN LOOP]-----------------------------------------
     public void gameLoop() {
         // Start Game Loop to place bet
-        System.out.println("New Game Starting");
+        System.out.println("New Game Starting\nEnter 'x' to exit");
         System.out.println("Current Balance: " + player.getBalance());
         System.out.println("Enter an amount to bet (Must be a whole number)");
         boolean setUp = true;
@@ -195,7 +210,7 @@ public class BlackJack {
         dealer.displayHand();
 
         // Ends game, checks for winner & saves data
-        endGame();
+        endGame(true);
 
         // Check for replay, if replay is wanted, call startGame();
         System.out.println("Type 1 to restart game or any other number to exit");

@@ -15,7 +15,6 @@ import java.util.Map;
 public class DataTracker {
 
     //------------------------------------[VARIABLES]------------------------------------
-    //private String filePath = "./resources/DataTracker.txt";
     private Path filePath = Paths.get("./resources/DataTracker.txt");
     private String userName = "";
     private int balance = 0;
