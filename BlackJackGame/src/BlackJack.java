@@ -104,10 +104,8 @@ public class BlackJack {
                     if (input.equalsIgnoreCase("x")) {
                         endGame(false);
                         System.exit(0);
-                    }
-                    else
-                    {
-                         System.out.println("Invalid Input: Please enter a valid number");
+                    } else {
+                        System.out.println("Invalid Input: Please enter a valid number");
                     }
                 }
             } catch (InputMismatchException e) {
@@ -213,9 +211,17 @@ public class BlackJack {
         endGame(true);
 
         // Check for replay, if replay is wanted, call startGame();
-        System.out.println("Type 1 to restart game or any other number to exit");
-        if (getIntInput() == 1) {
-            startGame();
+        System.out.println("Type 1 to restart game or 'x' to exit");
+        int optionNum = 0;
+        while (optionNum != 1) {
+            optionNum = getIntInput();
+            if (optionNum == 1) {
+                startGame();
+            }
+            else{
+                System.out.println("Invalid Option");
+            }
+
         }
     }
 }

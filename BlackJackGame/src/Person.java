@@ -7,13 +7,11 @@ import java.util.ArrayList;
  */
 public class Person {
 
-    private final ArrayList<Card> hand;
-    private int handValue;
+    private Hand hand;
 
     // DEFAULT CONSTRUCTOR
     public Person() {
-        this.hand = new ArrayList<>();
-        this.handValue = 0;
+        hand = new Hand();
     }
 
     // ADDS card PARAM  TO PLAYER hand
@@ -30,7 +28,7 @@ public class Person {
 
     // RETURNS hand AS ArrayList<Card>;
     public ArrayList<Card> getHand() {
-        return hand;
+        return hand.getHand();
     }
 
     public void displayHand() {
@@ -41,16 +39,16 @@ public class Person {
 
     // RETURNS handValue AS int
     public int getHandValue() {
-        return handValue;
+        return this.hand.getHandValue();
     }
 
     // SETS handValue TO PARAM
     public void updateHandValue() {
         int i = 0;
-        for(Card c : hand){
+        for (Card c : this.getHand()) {
             i += c.getValue();
         }
-        this.handValue = i;
+        this.hand.setHandValue(i);
     }
 
     // Checks player hand for Ace RETURNS number of aces
@@ -68,10 +66,9 @@ public class Person {
     public Card getAceCard(int i) {
         Card ace = null;
         int count = 1;
-        for (Card c : this.hand) {
+        for (Card c : this.hand.getHand()) {
             if (c.getFace().equals("Ace")) {
-                if(count == i)
-                {
+                if (count == i) {
                     ace = c;
                 }
                 count++;
@@ -79,19 +76,5 @@ public class Person {
         }
         return ace;
     }
-    
-//    // Changes value of the ith ace card in hand
-//    public void setAceCardValue(int index, int value) {
-//        int count = 1;
-//        for (Card c : hand) {
-//            if (c.getFace().equals("Ace")) {
-//                if(count == index)
-//                {
-//                    c.setValue(value);
-//                }
-//                count++;
-//            }
-//        }
-//    }
 
 }
