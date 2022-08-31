@@ -1,3 +1,4 @@
+
 /**
  * Console based BlackJack game for PDC Assignment 1
  *
@@ -33,5 +34,3 @@ public class Main {
         game.startGame();
     }
 }
-
-// Make class for rules to show or not show, reads from file
